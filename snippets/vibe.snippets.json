@@ -1,0 +1,183 @@
+{
+  "Function Definition": {
+    "prefix": "def",
+    "body": [
+      "def ${1:name}(${2:params})",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Define a function"
+  },
+  "Function with Return Type": {
+    "prefix": "deft",
+    "body": [
+      "def ${1:name}(${2:params}): ${3:type}",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Define a function with return type"
+  },
+  "Anonymous Function": {
+    "prefix": "fn",
+    "body": [
+      "fn(${1:params}) { ${0} }"
+    ],
+    "description": "Anonymous function"
+  },
+  "Arrow Function": {
+    "prefix": "arr",
+    "body": [
+      "-> (${1:x}) { ${0} }"
+    ],
+    "description": "Arrow function"
+  },
+  "If Block": {
+    "prefix": "if",
+    "body": [
+      "if ${1:condition}",
+      "  ${0}",
+      "end"
+    ],
+    "description": "If statement"
+  },
+  "If Else Block": {
+    "prefix": "ife",
+    "body": [
+      "if ${1:condition}",
+      "  ${2}",
+      "else",
+      "  ${0}",
+      "end"
+    ],
+    "description": "If/else statement"
+  },
+  "Unless Block": {
+    "prefix": "unless",
+    "body": [
+      "unless ${1:condition}",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Unless statement"
+  },
+  "For Loop": {
+    "prefix": "for",
+    "body": [
+      "for ${1:item} in ${2:collection}",
+      "  ${0}",
+      "end"
+    ],
+    "description": "For-in loop"
+  },
+  "For Loop with Key-Value": {
+    "prefix": "forkv",
+    "body": [
+      "for ${1:key}, ${2:value} in ${3:hash}",
+      "  ${0}",
+      "end"
+    ],
+    "description": "For-in loop with key and value"
+  },
+  "While Loop": {
+    "prefix": "while",
+    "body": [
+      "while ${1:condition}",
+      "  ${0}",
+      "end"
+    ],
+    "description": "While loop"
+  },
+  "Until Loop": {
+    "prefix": "until",
+    "body": [
+      "until ${1:condition}",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Until loop"
+  },
+  "Class Definition": {
+    "prefix": "class",
+    "body": [
+      "class ${1:Name}",
+      "  def initialize(${2:params})",
+      "    ${0}",
+      "  end",
+      "end"
+    ],
+    "description": "Define a class"
+  },
+  "Class with Inheritance": {
+    "prefix": "classi",
+    "body": [
+      "class ${1:Name} < ${2:Parent}",
+      "  def initialize(${3:params})",
+      "    ${0}",
+      "  end",
+      "end"
+    ],
+    "description": "Define a class with inheritance"
+  },
+  "Struct Definition": {
+    "prefix": "struct",
+    "body": [
+      "struct ${1:Name}",
+      "  ${2:field}: ${3:type}",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Define a struct"
+  },
+  "Enum Definition": {
+    "prefix": "enum",
+    "body": [
+      "enum ${1:Name}",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Define an enum"
+  },
+  "Try Catch": {
+    "prefix": "try",
+    "body": [
+      "try",
+      "  ${1}",
+      "catch ${2:e}",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Try-catch block"
+  },
+  "Try Catch Finally": {
+    "prefix": "tryf",
+    "body": [
+      "try",
+      "  ${1}",
+      "catch ${2:e}",
+      "  ${3}",
+      "finally",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Try-catch-finally block"
+  },
+  "Case When": {
+    "prefix": "case",
+    "body": [
+      "case ${1:subject}",
+      "when ${2:value}",
+      "  ${3}",
+      "else",
+      "  ${0}",
+      "end"
+    ],
+    "description": "Case-when expression"
+  },
+  "Import": {
+    "prefix": "import",
+    "body": [
+      "import \"${1:module}\""
+    ],
+    "description": "Import a module"
+  }
+}

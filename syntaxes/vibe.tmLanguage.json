@@ -1,0 +1,267 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Vibe",
+  "scopeName": "source.vibe",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings-triple" },
+    { "include": "#strings-double" },
+    { "include": "#strings-single" },
+    { "include": "#function-definition" },
+    { "include": "#class-definition" },
+    { "include": "#struct-definition" },
+    { "include": "#enum-definition" },
+    { "include": "#keywords-declaration" },
+    { "include": "#keywords-control" },
+    { "include": "#keywords-storage" },
+    { "include": "#constants-language" },
+    { "include": "#variables-language" },
+    { "include": "#support-functions" },
+    { "include": "#type-annotations" },
+    { "include": "#numbers" },
+    { "include": "#operators-special" },
+    { "include": "#operators-comparison" },
+    { "include": "#operators-assignment" },
+    { "include": "#operators-logical" },
+    { "include": "#operators-arithmetic" },
+    { "include": "#type-name" },
+    { "include": "#function-call" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.vibe",
+          "match": "#.*$"
+        },
+        {
+          "name": "comment.line.double-slash.vibe",
+          "match": "//.*$"
+        }
+      ]
+    },
+
+    "strings-triple": {
+      "name": "string.quoted.triple.vibe",
+      "begin": "\"\"\"",
+      "end": "\"\"\"",
+      "patterns": []
+    },
+
+    "strings-double": {
+      "name": "string.quoted.double.vibe",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        { "include": "#string-interpolation" },
+        { "include": "#string-escape" }
+      ]
+    },
+
+    "strings-single": {
+      "name": "string.quoted.single.vibe",
+      "begin": "'",
+      "end": "'",
+      "patterns": [
+        { "include": "#string-interpolation" },
+        { "include": "#string-escape" }
+      ]
+    },
+
+    "string-interpolation": {
+      "name": "meta.interpolation.vibe",
+      "begin": "\\$\\{",
+      "beginCaptures": {
+        "0": { "name": "punctuation.section.interpolation.begin.vibe" }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.interpolation.end.vibe" }
+      },
+      "patterns": [
+        { "include": "$self" }
+      ]
+    },
+
+    "string-escape": {
+      "name": "constant.character.escape.vibe",
+      "match": "\\\\[nrt\\\\\"']"
+    },
+
+    "function-definition": {
+      "patterns": [
+        {
+          "comment": "Generic function: def name<T, U>(params)",
+          "match": "\\b(def)\\s+([a-zA-Z_]\\w*)\\s*(<)",
+          "captures": {
+            "1": { "name": "keyword.declaration.function.vibe" },
+            "2": { "name": "entity.name.function.vibe" },
+            "3": { "name": "punctuation.definition.typeparameters.begin.vibe" }
+          }
+        },
+        {
+          "comment": "Regular function: def name",
+          "match": "\\b(def)\\s+([a-zA-Z_]\\w*)",
+          "captures": {
+            "1": { "name": "keyword.declaration.function.vibe" },
+            "2": { "name": "entity.name.function.vibe" }
+          }
+        }
+      ]
+    },
+
+    "class-definition": {
+      "patterns": [
+        {
+          "comment": "Class with inheritance: class Name < Parent",
+          "match": "\\b(class)\\s+([A-Z]\\w*)(?:\\s*<\\s*([A-Z]\\w*))?(?:\\s*<\\s*([A-Z]\\w*))?",
+          "captures": {
+            "1": { "name": "keyword.declaration.class.vibe" },
+            "2": { "name": "entity.name.type.class.vibe" },
+            "3": { "name": "entity.name.type.vibe" },
+            "4": { "name": "entity.other.inherited-class.vibe" }
+          }
+        }
+      ]
+    },
+
+    "struct-definition": {
+      "match": "\\b(struct)\\s+([A-Z]\\w*)",
+      "captures": {
+        "1": { "name": "keyword.declaration.struct.vibe" },
+        "2": { "name": "entity.name.type.struct.vibe" }
+      }
+    },
+
+    "enum-definition": {
+      "match": "\\b(enum)\\s+([A-Z]\\w*)",
+      "captures": {
+        "1": { "name": "keyword.declaration.enum.vibe" },
+        "2": { "name": "entity.name.type.enum.vibe" }
+      }
+    },
+
+    "keywords-control": {
+      "match": "\\b(if|elsif|else|end|unless|until|while|for|in|case|when|break|continue|return|try|catch|throw|finally)\\b",
+      "name": "keyword.control.vibe"
+    },
+
+    "keywords-declaration": {
+      "match": "\\b(def|class|struct|enum|prop)\\b",
+      "name": "keyword.declaration.vibe"
+    },
+
+    "keywords-storage": {
+      "match": "\\b(let|const|import)\\b",
+      "name": "storage.modifier.vibe"
+    },
+
+    "constants-language": {
+      "match": "\\b(true|false|nil)\\b",
+      "name": "constant.language.vibe"
+    },
+
+    "variables-language": {
+      "match": "\\b(self|super)\\b",
+      "name": "variable.language.vibe"
+    },
+
+    "support-functions": {
+      "match": "\\b(puts|print|len|push|pop|shift|first|last|map|filter|each|sort|reverse|flatten|includes|index_of|join|split|trim|replace|upcase|downcase|capitalize|starts_with|ends_with|repeat|chars|pad_start|pad_end|string_reverse|string_slice|string_contains|index_of_string|keys|values|has_key|merge|type|to_int|to_float|to_string|to_json|from_json|input|reduce|find|any|all|flat_map|zip|take|drop|chunk|group_by|sort_by|min_by|max_by|each_with_index|map_with_index|tally|delete|remove_at|spawn|await|send|receive|Channel|Range)\\b",
+      "name": "support.function.builtin.vibe"
+    },
+
+    "type-annotations": {
+      "patterns": [
+        {
+          "comment": "Type after colon: x: int, y: string[], z: int?",
+          "match": ":\\s*(int|float|string|boolean|nil|any)(\\[\\])?(\\?)?",
+          "captures": {
+            "1": { "name": "support.type.primitive.vibe" },
+            "2": { "name": "support.type.array.vibe" },
+            "3": { "name": "support.type.optional.vibe" }
+          }
+        },
+        {
+          "comment": "Return type annotation: ): type",
+          "match": "\\)\\s*:\\s*(int|float|string|boolean|nil|any)(\\[\\])?(\\?)?",
+          "captures": {
+            "1": { "name": "support.type.primitive.vibe" },
+            "2": { "name": "support.type.array.vibe" },
+            "3": { "name": "support.type.optional.vibe" }
+          }
+        }
+      ]
+    },
+
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.vibe",
+          "match": "\\b\\d+\\.\\d+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.vibe",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    },
+
+    "operators-special": {
+      "patterns": [
+        {
+          "name": "keyword.operator.pipe.vibe",
+          "match": "\\|>"
+        },
+        {
+          "name": "keyword.operator.nil-coalesce.vibe",
+          "match": "\\?\\?"
+        },
+        {
+          "name": "keyword.operator.range.exclusive.vibe",
+          "match": "\\.\\.\\."
+        },
+        {
+          "name": "keyword.operator.range.inclusive.vibe",
+          "match": "\\.\\."
+        },
+        {
+          "name": "storage.type.function.arrow.vibe",
+          "match": "->"
+        }
+      ]
+    },
+
+    "operators-comparison": {
+      "match": "==|!=|<=|>=|<|>",
+      "name": "keyword.operator.comparison.vibe"
+    },
+
+    "operators-assignment": {
+      "match": "\\+=|-=|\\*=|/=|%=|=",
+      "name": "keyword.operator.assignment.vibe"
+    },
+
+    "operators-logical": {
+      "match": "&&|\\|\\||!",
+      "name": "keyword.operator.logical.vibe"
+    },
+
+    "operators-arithmetic": {
+      "match": "\\*\\*|[+\\-*/%]",
+      "name": "keyword.operator.arithmetic.vibe"
+    },
+
+    "type-name": {
+      "match": "\\b([A-Z][a-zA-Z0-9_]*)\\b",
+      "name": "entity.name.type.vibe"
+    },
+
+    "function-call": {
+      "match": "\\b([a-z_][a-zA-Z0-9_]*)\\s*(?=\\()",
+      "captures": {
+        "1": { "name": "entity.name.function.call.vibe" }
+      }
+    }
+  }
+}

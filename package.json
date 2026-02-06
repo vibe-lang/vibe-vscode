@@ -1,0 +1,74 @@
+{
+  "name": "vibe-language",
+  "displayName": "Vibe Language",
+  "description": "Syntax highlighting, snippets, and IntelliSense for the Vibe programming language",
+  "version": "0.1.0",
+  "publisher": "vibe-lang",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vibe-lang/vibe-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/vibe-lang/vibe-vscode/issues"
+  },
+  "homepage": "https://github.com/vibe-lang/vibe",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "vibe",
+    "vibelang",
+    "programming language",
+    "syntax highlighting"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:vibe"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "vibe",
+        "aliases": [
+          "Vibe",
+          "vibe"
+        ],
+        "extensions": [
+          ".vb"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "vibe",
+        "scopeName": "source.vibe",
+        "path": "./syntaxes/vibe.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "vibe",
+        "path": "./snippets/vibe.snippets.json"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.75.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "@vscode/vsce": "^3.0.0"
+  }
+}
