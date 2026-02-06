@@ -11,6 +11,7 @@
     { "include": "#class-definition" },
     { "include": "#struct-definition" },
     { "include": "#enum-definition" },
+    { "include": "#hash-key" },
     { "include": "#keywords-declaration" },
     { "include": "#keywords-control" },
     { "include": "#keywords-storage" },
@@ -20,6 +21,7 @@
     { "include": "#type-annotations" },
     { "include": "#numbers" },
     { "include": "#operators-special" },
+    { "include": "#operators-ternary" },
     { "include": "#operators-comparison" },
     { "include": "#operators-assignment" },
     { "include": "#operators-logical" },
@@ -31,12 +33,12 @@
     "comments": {
       "patterns": [
         {
-          "name": "comment.line.number-sign.vibe",
-          "match": "#.*$"
-        },
-        {
           "name": "comment.line.double-slash.vibe",
           "match": "//.*$"
+        },
+        {
+          "name": "comment.line.number-sign.vibe",
+          "match": "#.*$"
         }
       ]
     },
@@ -44,8 +46,7 @@
     "strings-triple": {
       "name": "string.quoted.triple.vibe",
       "begin": "\"\"\"",
-      "end": "\"\"\"",
-      "patterns": []
+      "end": "\"\"\""
     },
 
     "strings-double": {
@@ -79,7 +80,19 @@
         "0": { "name": "punctuation.section.interpolation.end.vibe" }
       },
       "patterns": [
-        { "include": "$self" }
+        { "include": "#strings-double" },
+        { "include": "#strings-single" },
+        { "include": "#numbers" },
+        { "include": "#constants-language" },
+        { "include": "#variables-language" },
+        { "include": "#support-functions" },
+        { "include": "#keywords-control" },
+        { "include": "#operators-special" },
+        { "include": "#operators-comparison" },
+        { "include": "#operators-arithmetic" },
+        { "include": "#operators-logical" },
+        { "include": "#type-name" },
+        { "include": "#function-call" }
       ]
     },
 
@@ -113,24 +126,64 @@
     "class-definition": {
       "patterns": [
         {
-          "comment": "Class with inheritance: class Name < Parent",
-          "match": "\\b(class)\\s+([A-Z]\\w*)(?:\\s*<\\s*([A-Z]\\w*))?(?:\\s*<\\s*([A-Z]\\w*))?",
+          "comment": "Generic class with inheritance: class Name<T> < Parent",
+          "match": "\\b(class)\\s+([A-Z]\\w*)<([^>]+)>\\s*<\\s+([A-Z]\\w*)",
           "captures": {
             "1": { "name": "keyword.declaration.class.vibe" },
             "2": { "name": "entity.name.type.class.vibe" },
-            "3": { "name": "entity.name.type.vibe" },
+            "3": { "name": "entity.name.type.parameter.vibe" },
             "4": { "name": "entity.other.inherited-class.vibe" }
+          }
+        },
+        {
+          "comment": "Class with inheritance: class Name < Parent (space before <)",
+          "match": "\\b(class)\\s+([A-Z]\\w*)\\s+<\\s+([A-Z]\\w*)",
+          "captures": {
+            "1": { "name": "keyword.declaration.class.vibe" },
+            "2": { "name": "entity.name.type.class.vibe" },
+            "3": { "name": "entity.other.inherited-class.vibe" }
+          }
+        },
+        {
+          "comment": "Generic class: class Name<T, U>",
+          "match": "\\b(class)\\s+([A-Z]\\w*)<([^>]+)>",
+          "captures": {
+            "1": { "name": "keyword.declaration.class.vibe" },
+            "2": { "name": "entity.name.type.class.vibe" },
+            "3": { "name": "entity.name.type.parameter.vibe" }
+          }
+        },
+        {
+          "comment": "Simple class: class Name",
+          "match": "\\b(class)\\s+([A-Z]\\w*)",
+          "captures": {
+            "1": { "name": "keyword.declaration.class.vibe" },
+            "2": { "name": "entity.name.type.class.vibe" }
           }
         }
       ]
     },
 
     "struct-definition": {
-      "match": "\\b(struct)\\s+([A-Z]\\w*)",
-      "captures": {
-        "1": { "name": "keyword.declaration.struct.vibe" },
-        "2": { "name": "entity.name.type.struct.vibe" }
-      }
+      "patterns": [
+        {
+          "comment": "Generic struct: struct Name<T, U>",
+          "match": "\\b(struct)\\s+([A-Z]\\w*)<([^>]+)>",
+          "captures": {
+            "1": { "name": "keyword.declaration.struct.vibe" },
+            "2": { "name": "entity.name.type.struct.vibe" },
+            "3": { "name": "entity.name.type.parameter.vibe" }
+          }
+        },
+        {
+          "comment": "Simple struct: struct Name",
+          "match": "\\b(struct)\\s+([A-Z]\\w*)",
+          "captures": {
+            "1": { "name": "keyword.declaration.struct.vibe" },
+            "2": { "name": "entity.name.type.struct.vibe" }
+          }
+        }
+      ]
     },
 
     "enum-definition": {
@@ -141,13 +194,21 @@
       }
     },
 
+    "hash-key": {
+      "comment": "Hash key before colon: {host: value, port: value}",
+      "match": "(?<=[{,])\\s*([a-zA-Z_]\\w*)\\s*(?=:)",
+      "captures": {
+        "1": { "name": "entity.name.tag.key.vibe" }
+      }
+    },
+
     "keywords-control": {
       "match": "\\b(if|elsif|else|end|unless|until|while|for|in|case|when|break|continue|return|try|catch|throw|finally)\\b",
       "name": "keyword.control.vibe"
     },
 
     "keywords-declaration": {
-      "match": "\\b(def|class|struct|enum|prop)\\b",
+      "match": "\\b(def|fn|class|struct|enum|prop)\\b",
       "name": "keyword.declaration.vibe"
     },
 
@@ -174,7 +235,7 @@
     "type-annotations": {
       "patterns": [
         {
-          "comment": "Type after colon: x: int, y: string[], z: int?",
+          "comment": "Primitive type after colon: x: int, y: string[], z: int?",
           "match": ":\\s*(int|float|string|boolean|nil|any)(\\[\\])?(\\?)?",
           "captures": {
             "1": { "name": "support.type.primitive.vibe" },
@@ -183,10 +244,10 @@
           }
         },
         {
-          "comment": "Return type annotation: ): type",
-          "match": "\\)\\s*:\\s*(int|float|string|boolean|nil|any)(\\[\\])?(\\?)?",
+          "comment": "User-defined type after colon: p: Point, items: List[]",
+          "match": ":\\s*([A-Z]\\w*)(\\[\\])?(\\?)?",
           "captures": {
-            "1": { "name": "support.type.primitive.vibe" },
+            "1": { "name": "entity.name.type.annotation.vibe" },
             "2": { "name": "support.type.array.vibe" },
             "3": { "name": "support.type.optional.vibe" }
           }
@@ -205,6 +266,12 @@
           "match": "\\b\\d+\\b"
         }
       ]
+    },
+
+    "operators-ternary": {
+      "comment": "Ternary operator: condition ? a : b",
+      "match": "\\?(?!\\?)",
+      "name": "keyword.operator.ternary.vibe"
     },
 
     "operators-special": {

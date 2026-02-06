@@ -179,5 +179,76 @@
       "import \"${1:module}\""
     ],
     "description": "Import a module"
+  },
+  "Let Variable": {
+    "prefix": "let",
+    "body": [
+      "let ${1:name} = ${0}"
+    ],
+    "description": "Declare a variable"
+  },
+  "Constant": {
+    "prefix": "const",
+    "body": [
+      "const ${1:NAME} = ${0}"
+    ],
+    "description": "Declare a constant"
+  },
+  "Puts": {
+    "prefix": "puts",
+    "body": [
+      "puts(${0})"
+    ],
+    "description": "Print to stdout"
+  },
+  "Puts Interpolated": {
+    "prefix": "putsi",
+    "body": [
+      "puts(\"${0}\")"
+    ],
+    "description": "Print interpolated string"
+  },
+  "Guard Return": {
+    "prefix": "guard",
+    "body": [
+      "return ${1:value} if ${0:condition}"
+    ],
+    "description": "Guard clause with postfix if"
+  },
+  "Pipe Chain": {
+    "prefix": "pipe",
+    "body": [
+      "${1:data} |> ${2:transform} |> ${0}"
+    ],
+    "description": "Pipe operator chain"
+  },
+  "Map Lambda": {
+    "prefix": "mapl",
+    "body": [
+      "map(${1:arr}, -> (${2:x}) { ${0} })"
+    ],
+    "description": "Map with arrow function"
+  },
+  "Filter Lambda": {
+    "prefix": "filterl",
+    "body": [
+      "filter(${1:arr}, -> (${2:x}) { ${0} })"
+    ],
+    "description": "Filter with arrow function"
+  },
+  "Spawn Await": {
+    "prefix": "spawn",
+    "body": [
+      "task = spawn(fn() { ${1} })",
+      "result = await(task)${0}"
+    ],
+    "description": "Spawn a task and await result"
+  },
+  "Property Declaration": {
+    "prefix": "prop",
+    "body": [
+      "prop ${1:name}: ${0:type}"
+    ],
+    "description": "Property declaration in a class"
   }
 }

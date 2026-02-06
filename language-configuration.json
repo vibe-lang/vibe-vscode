@@ -22,7 +22,7 @@
     ["'", "'"]
   ],
   "indentationRules": {
-    "increaseIndentPattern": "^\\s*(def|if|elsif|else|unless|until|while|for|case|when|struct|class|enum|try|catch|finally)\\b.*$",
+    "increaseIndentPattern": "^\\s*(def|fn|if|elsif|else|unless|until|while|for|case|when|struct|class|enum|try|catch|finally)\\b.*$",
     "decreaseIndentPattern": "^\\s*(end|else|elsif|catch|finally|when)\\b"
   },
   "folding": {
@@ -35,6 +35,10 @@
     {
       "beforeText": "^\\s*(def|if|elsif|else|unless|until|while|for|case|when|struct|class|enum|try|catch|finally)\\b.*$",
       "action": { "indent": "indent" }
+    },
+    {
+      "beforeText": "^\\s*end\\b.*$",
+      "action": { "indent": "none" }
     }
   ],
   "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)"

@@ -42,6 +42,7 @@
         "extensions": [
           ".vb"
         ],
+        "firstLine": "^#!.*\\bvibe\\b",
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./images/vibe-file-icon.svg",
@@ -68,7 +69,46 @@
         "label": "Vibe File Icons",
         "path": "./icons/vibe-icon-theme.json"
       }
-    ]
+    ],
+    "commands": [
+      {
+        "command": "vibe.run",
+        "title": "Vibe: Run Current File",
+        "icon": "$(play)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "vibe.run",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r",
+        "when": "editorLangId == vibe"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "vibe.run",
+          "when": "editorLangId == vibe",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Vibe",
+      "properties": {
+        "vibe.executablePath": {
+          "type": "string",
+          "default": "vibe",
+          "description": "Path to the vibe interpreter executable"
+        },
+        "vibe.enableDiagnostics": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable real-time error diagnostics on save"
+        }
+      }
+    }
   },
   "scripts": {
     "compile": "tsc -p ./",
