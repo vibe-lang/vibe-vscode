@@ -105,7 +105,12 @@
         "vibe.enableDiagnostics": {
           "type": "boolean",
           "default": true,
-          "description": "Enable real-time error diagnostics on save"
+          "description": "Enable real-time error diagnostics on save (fallback mode only)"
+        },
+        "vibe.lspPath": {
+          "type": "string",
+          "default": "vibe-lsp",
+          "description": "Path to the vibe-lsp language server binary"
         }
       }
     }
@@ -115,6 +120,9 @@
     "watch": "tsc -watch -p ./",
     "package": "vsce package",
     "publish": "vsce publish"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
   },
   "devDependencies": {
     "@types/vscode": "^1.75.0",
