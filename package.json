@@ -42,7 +42,11 @@
         "extensions": [
           ".vb"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./images/vibe-file-icon.svg",
+          "dark": "./images/vibe-file-icon.svg"
+        }
       }
     ],
     "grammars": [
@@ -56,6 +60,13 @@
       {
         "language": "vibe",
         "path": "./snippets/vibe.snippets.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "vibe-icons",
+        "label": "Vibe File Icons",
+        "path": "./icons/vibe-icon-theme.json"
       }
     ]
   },

@@ -1,0 +1,13 @@
+{
+  "iconDefinitions": {
+    "vibe": {
+      "iconPath": "../images/vibe-file-icon.svg"
+    }
+  },
+  "fileExtensions": {
+    "vb": "vibe"
+  },
+  "languageIds": {
+    "vibe": "vibe"
+  }
+}
